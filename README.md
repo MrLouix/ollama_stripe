@@ -64,7 +64,7 @@ docker compose exec ollama ollama pull llama3
 
 ## 📋 Current Status
 
-**Progress**: Phase 0-4 completed (5/9 = 56%) — See `docs/avancement.md` for detailed tracking
+**Progress**: Phase 0-5 completed (6/9 = 67%) — See `docs/avancement.md` for detailed tracking
 
 ### ✅ Completed
 - [x] Detailed specification (`docs/spec.md`)
@@ -101,9 +101,16 @@ docker compose exec ollama ollama pull llama3
   - [x] Usage tracking service
   - [x] Full request pipeline (auth → rate limit → quota → Ollama → tracking)
   - [x] 9 passing unit tests
+- [x] **Phase 5: Admin CRUD endpoints**
+  - [x] Tenant management endpoints (POST, GET, PATCH, DELETE)
+  - [x] API key management endpoints (POST, GET, DELETE/revoke)
+  - [x] Plan and subscription management endpoints
+  - [x] Usage monitoring and quota status endpoints
+  - [x] Admin authentication with JWT
+  - [x] Comprehensive unit tests created (65+ test cases)
+  - [x] All admin routers integrated in main application
 
 ### 📅 Next Steps
-- [ ] Phase 5: Admin CRUD endpoints
 - [ ] Phase 6: Worker and daily aggregations
 - [ ] Phase 7: Stripe integration
 - [ ] Phase 8: Integration tests and deployment

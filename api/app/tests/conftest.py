@@ -1,11 +1,86 @@
 """Pytest configuration and fixtures"""
 
+import os
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from fastapi.testclient import TestClient
 from redis import Redis
 import fakeredis
+
+# Set test environment variables before importing app modules
+os.environ.setdefault("DATABASE_URL", "sqlite:///:memory:")
+os.environ.setdefault("REDIS_URL", "redis://localhost:6379")
+os.environ.setdefault("STRIPE_SECRET_KEY", "sk_test_fake")
+os.environ.setdefault("STRIPE_WEBHOOK_SECRET", "whsec_test_fake")
+os.environ.setdefault("ADMIN_SECRET", "test_admin_secret_key_12345")
+os.environ.setdefault("DOMAIN", "test.example.com")
+os.environ.setdefault("OLLAMA_URL", "http://localhost:11434")
+
+# Patch UUID type before importing models
+from sqlalchemy import TypeDecorator, CHAR
+import uuid as uuid_module
+import sqlalchemy.dialects.postgresql as pg_dialects
+
+class SQLiteUUID(TypeDecorator):
+    """Platform-independent UUID type.
+    Uses PostgreSQL's UUID type, otherwise uses CHAR(36), storing as stringified hex values.
+    """
+    impl = CHAR
+    cache_ok = True
+
+    def __init__(self, as_uuid=True):
+        self.as_uuid = as_uuid
+        super().__init__()
+
+    def load_dialect_impl(self, dialect):
+        if dialect.name == 'postgresql':
+            return dialect.type_descriptor(CHAR(36))
+        else:
+            return dialect.type_descriptor(CHAR(36))
+
+    def process_bind_param(self, value, dialect):
+        if value is None:
+            return value
+        else:
+            if isinstance(value, uuid_module.UUID):
+                return str(value)
+            else:
+                return str(uuid_module.UUID(value))
+
+    def process_result_value(self, value, dialect):
+        if value is None:
+            return value
+        else:
+            if not self.as_uuid:
+                return value
+            if isinstance(value, uuid_module.UUID):
+                return value
+            else:
+                return uuid_module.UUID(value)
+
+# Replace PostgreSQL UUID with our SQLite-compatible version
+_original_UUID = pg_dialects.UUID
+pg_dialects.UUID = SQLiteUUID
+
+# Also patch JSONB and INET for SQLite compatibility
+from sqlalchemy import JSON, String
+
+class SQLiteJSONB(TypeDecorator):
+    """SQLite-compatible JSONB type (uses JSON)"""
+    impl = JSON
+    cache_ok = True
+
+class SQLiteINET(TypeDecorator):
+    """SQLite-compatible INET type (uses String)"""
+    impl = String
+    cache_ok = True
+    
+    def __init__(self):
+        super().__init__(length=45)  # Max length for IPv6
+
+pg_dialects.JSONB = SQLiteJSONB
+pg_dialects.INET = SQLiteINET
 
 from app.db.database import Base, get_db
 from app.dependencies import get_redis
@@ -17,10 +92,13 @@ from app.services.auth import generate_api_key, hash_password
 # Test database URL (in-memory SQLite)
 SQLALCHEMY_TEST_DATABASE_URL = "sqlite:///:memory:"
 
-# Create test engine
+# Create test engine with StaticPool to share the same connection across threads
+from sqlalchemy.pool import StaticPool
+
 test_engine = create_engine(
     SQLALCHEMY_TEST_DATABASE_URL,
-    connect_args={"check_same_thread": False}
+    connect_args={"check_same_thread": False},
+    poolclass=StaticPool
 )
 
 # Create test session factory
