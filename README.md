@@ -64,7 +64,7 @@ docker compose exec ollama ollama pull llama3
 
 ## 📋 Current Status
 
-**Progress**: Phase 0-1 completed (2/9 = 22%) — See `docs/avancement.md` for detailed tracking
+**Progress**: Phase 0-2 completed (3/9 = 33%) — See `docs/avancement.md` for detailed tracking
 
 ### ✅ Completed
 - [x] Detailed specification (`docs/spec.md`)
@@ -84,12 +84,17 @@ docker compose exec ollama ollama pull llama3
   - [x] Initial migration with generated column
   - [x] 7 performance indexes created
   - [x] Migration applied successfully
+- [x] **Phase 2: Authentication and security** (commit `ef41ed8`)
+  - [x] API key generation and verification (SHA-256)
+  - [x] JWT for admin users (creation/verification)
+  - [x] FastAPI dependencies for auth
+  - [x] 7 passing unit tests
 
 ### 🚧 In Progress
-- [ ] **Phase 2: Authentication and security**
-  - [ ] API key generation and verification (SHA-256)
-  - [ ] JWT for admin users
-  - [ ] FastAPI dependencies for auth
+- [ ] **Phase 3: Rate limiting and quotas**
+  - [ ] Redis-based rate limiting (sliding window)
+  - [ ] Quota checking (daily/monthly)
+  - [ ] Usage increment functions
 
 ### 📅 Next Steps
 - [ ] Phase 2: Authentication service (API keys + JWT)
