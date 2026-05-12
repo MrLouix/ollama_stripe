@@ -28,7 +28,7 @@ if config.config_file_name is not None:
 # add your model's MetaData object here
 # for 'autogenerate' support
 # Import all models here so Alembic can detect them
-# from app.db.models import *  # noqa
+from app.db import models  # noqa
 target_metadata = Base.metadata
 
 

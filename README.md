@@ -64,19 +64,38 @@ docker compose exec ollama ollama pull llama3
 
 ## 📋 Current Status
 
+**Progress**: Phase 0-1 completed (2/9 = 22%) — See `docs/avancement.md` for detailed tracking
+
 ### ✅ Completed
 - [x] Detailed specification (`docs/spec.md`)
 - [x] Implementation plan with unit tests (`docs/plan.md`)
 - [x] Architecture design
 - [x] Data model (11 PostgreSQL tables)
 - [x] API contract (OpenAI-compatible)
+- [x] **Phase 0: Infrastructure setup** (commit `7a1ce93`)
+  - [x] Project skeleton and directory structure
+  - [x] Docker Compose with 6 services
+  - [x] FastAPI application boilerplate
+  - [x] Configuration management (pydantic-settings)
+  - [x] Database connection (SQLAlchemy)
+  - [x] Alembic migrations setup
+- [x] **Phase 1: Database models and migrations** (commit `[pending]`)
+  - [x] SQLAlchemy models (11 tables with relationships)
+  - [x] Initial migration with generated column
+  - [x] 7 performance indexes created
+  - [x] Migration applied successfully
 
 ### 🚧 In Progress
-- [ ] FastAPI application skeleton
-- [ ] Database models and migrations
-- [ ] Authentication service (API keys + JWT)
-- [ ] Rate limiting (Redis)
-- [ ] Ollama client and `/v1/chat/completions` endpoint
+- [ ] **Phase 2: Authentication and security**
+  - [ ] API key generation and verification (SHA-256)
+  - [ ] JWT for admin users
+  - [ ] FastAPI dependencies for auth
+
+### 📅 Next Steps
+- [ ] Phase 2: Authentication service (API keys + JWT)
+- [ ] Phase 3: Rate limiting (Redis)
+- [ ] Phase 4: Ollama client and `/v1/chat/completions` endpoint
+- [ ] Phase 5-8: Admin endpoints, worker, Stripe, integration tests
 
 ### 📅 Roadmap
 
