@@ -64,7 +64,7 @@ docker compose exec ollama ollama pull llama3
 
 ## 📋 Current Status
 
-**Progress**: Phase 0-6 completed (7/9 = 78%) — See `docs/avancement.md` for detailed tracking
+**Progress**: Phase 0-7 completed (8/9 = 89%) — See `docs/avancement.md` for detailed tracking
 
 ### ✅ Completed
 - [x] Detailed specification (`docs/spec.md`)
@@ -117,9 +117,15 @@ docker compose exec ollama ollama pull llama3
   - [x] Cost estimation calculation
   - [x] 6 passing unit tests for worker functions
   - [x] Support for custom date ranges and retention periods
+- [x] **Phase 7: Stripe integration**
+  - [x] Stripe API client service (create customer, subscriptions, billing portal)
+  - [x] Webhook handler for Stripe events (invoice.paid, payment_failed, subscription lifecycle)
+  - [x] Admin billing endpoints (POST /admin/billing/customers, subscriptions, portal)
+  - [x] Usage record creation for metered billing
+  - [x] Subscription management (create, cancel, retrieve)
+  - [x] 13 passing unit tests for Stripe client
 
 ### 📅 Next Steps
-- [ ] Phase 7: Stripe integration
 - [ ] Phase 8: Integration tests and deployment
 
 ### 📅 Roadmap

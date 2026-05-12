@@ -3,7 +3,7 @@
 from fastapi import FastAPI
 from app.config import settings
 from app.api.v1 import chat
-from app.api import admin
+from app.api import admin, webhooks
 
 app = FastAPI(
     title="Ollama SaaS Gateway",
@@ -16,6 +16,9 @@ app.include_router(chat.router, prefix="/v1", tags=["chat"])
 
 # Include admin routers
 app.include_router(admin.router, prefix="/admin", tags=["admin"])
+
+# Include webhook routers
+app.include_router(webhooks.router, prefix="/webhooks", tags=["webhooks"])
 
 
 @app.get("/")
