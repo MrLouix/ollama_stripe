@@ -79,7 +79,7 @@ docker compose exec ollama ollama pull llama3
   - [x] Configuration management (pydantic-settings)
   - [x] Database connection (SQLAlchemy)
   - [x] Alembic migrations setup
-- [x] **Phase 1: Database models and migrations** (commit `[pending]`)
+- [x] **Phase 1: Database models and migrations** (commit `2f2c83c`)
   - [x] SQLAlchemy models (11 tables with relationships)
   - [x] Initial migration with generated column
   - [x] 7 performance indexes created
