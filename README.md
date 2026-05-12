@@ -64,7 +64,7 @@ docker compose exec ollama ollama pull llama3
 
 ## 📋 Current Status
 
-**Progress**: Phase 0-5 completed (6/9 = 67%) — See `docs/avancement.md` for detailed tracking
+**Progress**: Phase 0-6 completed (7/9 = 78%) — See `docs/avancement.md` for detailed tracking
 
 ### ✅ Completed
 - [x] Detailed specification (`docs/spec.md`)
@@ -109,9 +109,16 @@ docker compose exec ollama ollama pull llama3
   - [x] Admin authentication with JWT
   - [x] Comprehensive unit tests created (65+ test cases)
   - [x] All admin routers integrated in main application
+- [x] **Phase 6: Worker and daily aggregations**
+  - [x] Daily usage aggregation function (tenant-level)
+  - [x] Old events cleanup function (90-day retention)
+  - [x] Worker main loop with hourly execution
+  - [x] Automatic aggregation of usage events into daily summaries
+  - [x] Cost estimation calculation
+  - [x] 6 passing unit tests for worker functions
+  - [x] Support for custom date ranges and retention periods
 
 ### 📅 Next Steps
-- [ ] Phase 6: Worker and daily aggregations
 - [ ] Phase 7: Stripe integration
 - [ ] Phase 8: Integration tests and deployment
 
