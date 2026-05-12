@@ -1,0 +1,3 @@
+{$DOMAIN:api.exemple.com} {
+    reverse_proxy gateway:8000
+}
