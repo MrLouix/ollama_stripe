@@ -2,12 +2,16 @@
 
 from fastapi import FastAPI
 from app.config import settings
+from app.api.v1 import chat
 
 app = FastAPI(
     title="Ollama SaaS Gateway",
     description="API Gateway for monetizing local Ollama LLM instances",
     version="0.1.0",
 )
+
+# Include API v1 routers
+app.include_router(chat.router, prefix="/v1", tags=["chat"])
 
 
 @app.get("/")

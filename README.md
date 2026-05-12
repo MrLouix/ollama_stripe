@@ -64,7 +64,7 @@ docker compose exec ollama ollama pull llama3
 
 ## 📋 Current Status
 
-**Progress**: Phase 0-3 completed (4/9 = 44%) — See `docs/avancement.md` for detailed tracking
+**Progress**: Phase 0-4 completed (5/9 = 56%) — See `docs/avancement.md` for detailed tracking
 
 ### ✅ Completed
 - [x] Detailed specification (`docs/spec.md`)
@@ -89,15 +89,20 @@ docker compose exec ollama ollama pull llama3
   - [x] JWT for admin users (creation/verification)
   - [x] FastAPI dependencies for auth
   - [x] 7 passing unit tests
-- [x] **Phase 3: Rate limiting and quotas**
+- [x] **Phase 3: Rate limiting and quotas** (commit `ac3d365`)
   - [x] Redis-based rate limiting with sliding window
   - [x] Quota checking (daily/monthly)
   - [x] Usage increment and tracking functions
   - [x] Alert thresholds (80%, 90%, 100%)
   - [x] 18 passing unit tests (8 rate_limit + 10 quota)
+- [x] **Phase 4: Ollama client and chat endpoint**
+  - [x] Ollama API client with format transformation
+  - [x] POST /v1/chat/completions endpoint (OpenAI-compatible)
+  - [x] Usage tracking service
+  - [x] Full request pipeline (auth → rate limit → quota → Ollama → tracking)
+  - [x] 9 passing unit tests
 
 ### 📅 Next Steps
-- [ ] Phase 4: Ollama client and `/v1/chat/completions` endpoint
 - [ ] Phase 5: Admin CRUD endpoints
 - [ ] Phase 6: Worker and daily aggregations
 - [ ] Phase 7: Stripe integration
